@@ -1,0 +1,27 @@
+# 接口标签声明 sidecar（本目录接口文档.md 所辖 6 端点的技术标签真源；cl-20261009-yumai-api-tag-sidecar-task_short-s01 首建）
+# 键=路由键三段式（与 config/structures/route-card.yaml sdkRegistry 键集双向对拍）；值=stack（技术栈）/patterns（设计模式）双数组。
+# 值域纪律：全部标签 ∈ tech_kb 统一词表池（knowledge-transfer project_docs/tech_kb/**/00-技术栈声明.yaml 汇池，
+#   含 java-ecosystem/springboot/extensions/spring-ai/ 子族词条）；禁自造词（对拍脚本 tmp/tag_vocab_check.json 留痕）。
+# 证据源（java 解析器+直抓范式，struct JSON 落 tmp/tag_struct_*.json）：
+#   stack ← FileStruct.imports + 方法级 returns（Flux/ServerSentEvent/SseEmitter 形态直读）；
+#   patterns ← struct line 行号区间读类声明行（extends 继承链）+ @Bean 注册面（extends 输出面缺席=黄档，直抓兜底，P2 扩面后升自动）。
+
+routes:
+  api-yum_ai_agent-GET-api-ai-love_app-chat-sync:
+    stack: [Spring AI, ChatClient, 会话记忆]
+    patterns: [建造者模式, 责任链模式]
+  api-yum_ai_agent-GET-api-ai-love_app-chat-sse:
+    stack: [Spring AI, ChatClient, 会话记忆, SSE流式, 响应式流, Project Reactor]
+    patterns: [建造者模式, 责任链模式]
+  api-yum_ai_agent-GET-api-ai-love_app-chat-server_sent_event:
+    stack: [Spring AI, ChatClient, 会话记忆, SSE流式, 响应式流, Project Reactor, ServerSentEvent]
+    patterns: [建造者模式, 责任链模式]
+  api-yum_ai_agent-GET-api-ai-love_app-chat-sse_emitter:
+    stack: [Spring AI, ChatClient, 会话记忆, SSE流式, SseEmitter]
+    patterns: [建造者模式, 责任链模式]
+  api-yum_ai_agent-GET-api-ai-manus-chat:
+    stack: [Spring AI, Agent, 工具调用, SSE流式, SseEmitter]
+    patterns: [模板方法, 注册表模式, 策略模式]
+  api-yum_ai_agent-GET-api-health:
+    stack: []
+    patterns: []
