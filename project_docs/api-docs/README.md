@@ -1,0 +1,41 @@
+# yum-ai-agent api-docs 目录说明
+
+## 目的
+
+本目录存放 `yum-ai-agent` 后端接口文档，`接口文档.md` 为接口契约的唯一真源（仿 gitbook-local 工作区 `project_docs/api-docs/` 同名目录约定建立）。
+
+与运行时文档的关系：项目自带 springdoc + knife4j（`/api/swagger-ui.html`、`/api/v3/api-docs`），该面由源码注解自动派生，作为联调参考；**契约变更以本目录 `接口文档.md` 为准**，两者不一致时以本目录为准并回改代码注释。
+
+## 目录内容
+
+| 文件 | 性质 | 说明 |
+| --- | --- | --- |
+| `接口文档.md` | 接口契约正文 | 全部 HTTP 端点的路径/参数/响应结构（当前 6 端点：AI 恋爱大师 4 + Manus 智能体 1 + 健康检查 1） |
+
+## 新增/变更接口后怎么维护（本工作区简版流程）
+
+1. 改 `接口文档.md`：新增接口章节（含路径/参数/响应），或变更既有章节的路径/用途；路由总表同步加行/改行
+2. 若前端有消费：同步 `yum-ai-agent-frontend/src/api/index.js` 的封装方法
+3. 验证：启动后端后按文档示例 curl 一遍（流式端点用 `curl -N`）
+
+> 说明：gitbook-local 的 api-docs 维护流程还包含「同步中心区路由卡 + 刷新缓存 + lookup 验证」，该链路依赖 orchestrator 速查体系；`yum-ai-agent` 当前未接入该体系，接入后再补此步。
+
+## 暂不直接纳入本目录的内容
+
+- MCP server（`yum-image-search-mcp-server/`）的工具契约——MCP 工具非 HTTP 端点，如需文档另建目录承接
+- 前端内部组件 props/events（归 `../前端功能设计/`，目录建立后承接）
+
+## 关联文档
+
+- `接口文档.md`
+- `../README.md`（project_docs 根说明）
+- `../00-项目文档索引.md`（全册导航）
+- `../前端功能设计/前端架构设计.md`（前端 SSE 消费链设计）
+
+## 变更历史
+
+- 2026-10-09 10:45:00：根治理件落地联动（cl-20261009-yumai-projectdocs-p1-batch T9）——关联文档占位行消除（根 README/00-项目文档索引/前端架构设计正式回链）
+- 2026-10-09 09:40:00：后端目录更名 `backend/`→`yum-ai-agent-backend/`（对齐 gitbook-local `gitbook-local-backend/` 命名范式，git mv 保留历史）；`接口文档.md` 概述源码路径同步；mvn compile 过 + tag-scan 全量 exit 0（controllers=2/endpoints=6 零漂移）
+- 2026-10-09 09:30:00：模块前缀更名 `yu-`→`yum-`——目录 `yu-ai-agent-frontend/`→`yum-ai-agent-frontend/`、`yu-image-search-mcp-server/`→`yum-image-search-mcp-server/`（git mv 保留历史）；配置面同步（backend pom artifactId/name、application.yml 应用名、Dockerfile jar 名 `yum-ai-agent-0.0.1-SNAPSHOT.jar`、mcp-servers.json 服务键与 jar 路径、MCP 侧 pom+3 份 yml、前端 package.json/lock name）；java 包名 com.yupi.* 与 README 上游仓库 URL 不动；backend mvn compile BUILD SUCCESS + tag-scan 全量 exit 0（数据面零漂移）；本目录两文档路径引用同步
+- 2026-10-09 09:15:00：后端源码重组同步——根 `src/`+`pom.xml`+`Dockerfile`+`.mvn/`+`mvnw*` 挪入 `backend/`（对称前端模块目录），`接口文档.md` 概述源码路径同步改写；后端 pom lombok 1.18.36→1.18.46（本机 JDK 24 编译兼容，parse-hub 同款先例）；tag-scan 全量探针含 call-chain 复跑 exit 0（数据面 controllers=2/endpoints=6 零漂移）
+- 2026-10-08 22:45:00：目录建立首批（rp-yumai-projectdocs-pilot-survey 试点）——`接口文档.md` 初版收录 6 端点 + 路由总表；README 建册说明「契约真源 vs swagger 派生面」双真源关系与简版维护流程
