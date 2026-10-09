@@ -10,6 +10,7 @@
 后端功能设计/
 ├── README.md                  # 本说明
 ├── 00-后端功能设计索引.md      # 域导航注册表
+├── 后端技术栈总览.md           # 全量技术栈分层盘点（模型面现役/备选矩阵）
 ├── LoveApp域/                  # 恋爱大师应用（六能力面 + RAG 增强链）
 │   ├── 00-LoveApp域索引.md
 │   ├── LoveApp应用设计.md
@@ -35,4 +36,5 @@
 
 ## 变更历史
 
+- 2026-10-09 14:00:00：新增 `后端技术栈总览.md`（横切面）；RAG增强链设计 三处事实同步智谱切换现状（SimpleVectorStore 内存态/@Lazy 双配对/内存-PgVector 切换面）
 - 2026-10-09 10:40:00：目录建立（cl-20261009-yumai-projectdocs-p1-batch T5-T8）——治理件 + 三域四正文首批落档（素材源：orchestrator reports/rp-yumai-domains-deepread-survey 深读调研）
