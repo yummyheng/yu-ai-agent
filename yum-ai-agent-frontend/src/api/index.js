@@ -29,6 +29,8 @@ export const connectSSE = (url, params, onMessage, onError) => {
     // 检查是否是特殊标记
     if (data === '[DONE]') {
       if (onMessage) onMessage('[DONE]')
+      // 流结束主动关闭：否则等服务端断连触发 onerror，控制台残留「SSE Error」噪音
+      eventSource.close()
     } else {
       // 处理普通消息
       if (onMessage) onMessage(data)
