@@ -94,7 +94,10 @@ public class LoveApp {
                 .user(message)
                 .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, chatId))
                 .stream()
-                .content();
+                .content()
+                // 流结束标记：前端 EventSource 收到 [DONE] 后主动 close，
+                // 避免等服务端断连触发 onerror 自动重连（控制台 SSE Error 噪音）
+                .concatWith(Flux.just("[DONE]"));
     }
 
     record LoveReport(String title, List<String> suggestions) {
