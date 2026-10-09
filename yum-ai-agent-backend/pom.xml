@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yupi</groupId>
-    <artifactId>yu-ai-agent</artifactId>
+    <artifactId>yum-ai-agent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>yu-ai-agent</name>
-    <description>yu-ai-agent</description>
+    <name>yum-ai-agent</name>
+    <description>yum-ai-agent</description>
     <url/>
     <licenses>
         <license/>
@@ -153,7 +153,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.36</version>
+            <version>1.18.46</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -173,7 +173,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.36</version>
+                            <version>1.18.46</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

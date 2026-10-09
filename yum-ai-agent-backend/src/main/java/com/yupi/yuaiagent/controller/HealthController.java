@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/health")
 public class HealthController {
 
+    /**
+     * 存活探针（返回固定 ok）
+     */
     @GetMapping
     public String healthCheck() {
         return "ok";
