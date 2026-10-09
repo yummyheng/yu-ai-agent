@@ -19,6 +19,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
@@ -121,14 +122,18 @@ public class LoveApp {
 
     // AI 恋爱知识库问答功能
 
+    // @Lazy 注入代理（与 LoveAppVectorStoreConfig 的 @Lazy bean 配对）：@Resource 注入点不标则启动期即拉实例化（429 实证）
+    @Lazy
     @Resource
     private VectorStore loveAppVectorStore;
 
-    @Resource
-    private Advisor loveAppRagCloudAdvisor;
+    // 云 RAG 顾问 bean 随 LoveAppRagCloudAdvisorConfig 注释化退役（智谱切换批）；恢复云 RAG 时连配置类一并解注释
+    // @Resource
+    // private Advisor loveAppRagCloudAdvisor;
 
-    @Resource
-    private VectorStore pgVectorVectorStore;
+    // PgVector bean 随 PgVectorVectorStoreConfig 注释态从未存在；401 解除后注入会炸，一并注释（恢复 PgVector 时解注释）
+    // @Resource
+    // private VectorStore pgVectorVectorStore;
 
     @Resource
     private QueryRewriter queryRewriter;

@@ -3,18 +3,35 @@ spring:
     name: yum-ai-agent
   profiles:
     active: local
+  # 密钥外置（tracking-database.yaml 同款范式）：实际值在 ~/.orchestrator-secrets.yaml（仓库外），
+  # 经 config.import 导入后由下方占位符解析，仓库可安全推送公仓
+  config:
+    import: optional:file:${user.home}/.orchestrator-secrets.yaml
+  # 排除 ollama 自动装配（demo 学习面手动 new 用；避免与智谱双 ChatModel/EmbeddingModel 候选撞注入点）
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.model.ollama.autoconfigure.OllamaChatAutoConfiguration
+      - org.springframework.ai.model.ollama.autoconfigure.OllamaEmbeddingAutoConfiguration
 # 临时注释掉，便于大家开发调试和部署（实际填写 PgVector 数据库信息）
 #  datasource:
 #    url: xxx
 #    username: root
 #    password: 123456
   ai:
-    dashscope:
-      # 需要替换为你自己的 key
-      api-key: your-api-key
+    # DashScope 段（切智谱备用，见 pom 注释块）：
+    # dashscope:
+    #   api-key: your-api-key
+    #   chat:
+    #     options:
+    #       model: qwen-plus
+    zhipuai:
+      api-key: ${orchestrator.zhipu.agentKey:}
       chat:
         options:
-          model: qwen-plus
+          model: glm-4-flash   # 免费档（GLM-4-Flash 官方完全免费；glm-5.3-flash 等计费档走按量余额，Coding Plan 套餐不覆盖标准 API）
+      embedding:
+        options:
+          model: embedding-2
     ollama:
       base-url: http://localhost:11434
       chat:
