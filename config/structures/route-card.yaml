@@ -1,0 +1,23 @@
+# Unit-Id: cfg-structures-ya-route-card
+# yum-ai-agent 路由卡语义补充面（api-route-autogen TARGETS 扩面，承 rp-yumai-api-route-autogen-poc + cl-20261009-yumai-api-route-autogen-onboard）。
+# 形制对齐 tracking-system config/structures/route-card.yaml（cfg-structures-ts-route-card 先例）。
+# 节归属硬约束=controller×method（生成器 _owner_idx）：AiController 5 端点全 GET 无法按业务拆节
+#   （恋爱大师/Manus 同 controller 无方法分流），故按 controller 两节——裁决 2 落地修正（b 形态，执行中实证）。
+# sdkRegistry 硬约束=键集与路由键全集双向对拍（缺键/停用未清均 FAIL）：yum 6 键全登记
+#   「— 前端消费，不进 SDK」——裁决 3 落地修正（b 形态；无 sh/py/Java SDK 消费，前端 EventSource 直消费）。
+# 键名口径：三段式 api-yum_ai_agent-<METHOD>-<path>（路径 /api 前缀保留、/ 转 -，生成器 route_key 派生）。
+workspace: yum-ai-agent
+sections:
+  - title: AI 应用接口路由
+    anchor: k-route-ya-ai-app
+    controllers: [AiController]
+  - title: 健康检查接口路由
+    anchor: k-route-ya-health
+    controllers: [HealthController]
+sdkRegistry:
+  api-yum_ai_agent-GET-api-ai-love_app-chat-sync: "— 前端消费，不进 SDK"
+  api-yum_ai_agent-GET-api-ai-love_app-chat-sse: "— 前端消费，不进 SDK（EventSource 流式）"
+  api-yum_ai_agent-GET-api-ai-love_app-chat-server_sent_event: "— 前端消费，不进 SDK（ServerSentEvent 形态）"
+  api-yum_ai_agent-GET-api-ai-love_app-chat-sse_emitter: "— 前端消费，不进 SDK（SseEmitter 形态）"
+  api-yum_ai_agent-GET-api-ai-manus-chat: "— 前端消费，不进 SDK（EventSource 流式）"
+  api-yum_ai_agent-GET-api-health: "— 存活探针，不进 SDK"
