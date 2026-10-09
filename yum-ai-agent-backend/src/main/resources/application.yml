@@ -31,7 +31,7 @@ spring:
           model: glm-5.3-flash  # 推理资源包档（5000 万 token；GLM-4-Flash 免费档为备用）
       embedding:
         options:
-          model: embedding-2
+          model: embedding-3  # 向量资源包档（5000 万 token）
     ollama:
       base-url: http://localhost:11434
       chat:
