@@ -12,13 +12,14 @@
 | --- | --- | --- |
 | `接口文档.md` | 接口契约正文 | 全部 HTTP 端点的路径/参数/响应结构（当前 6 端点：AI 恋爱大师 4 + Manus 智能体 1 + 健康检查 1） |
 
-## 新增/变更接口后怎么维护（本工作区简版流程）
+## 新增/变更接口后怎么进速查体系（正式四步链）
 
-1. 改 `接口文档.md`：新增接口章节（含路径/参数/响应），或变更既有章节的路径/用途；路由总表同步加行/改行
-2. 若前端有消费：同步 `yum-ai-agent-frontend/src/api/index.js` 的封装方法
-3. 验证：启动后端后按文档示例 curl 一遍（流式端点用 `curl -N`）
+1. **改 `接口文档.md`**：新增接口章节（含路径/参数/响应），或变更既有章节的路径/用途
+2. **路由总表自动同步**：`python3 ~/orchestrator/scripts/generate/api-route-autogen/main.py --workspace yum-ai-agent`（controller 源码单源幂等重跑——总表/路由卡/lineage 三面同刷，禁止手改生成段）
+3. **刷新缓存**：`curl -s -X POST 'http://localhost:8082/api/decl-keys/cache/refresh'`
+4. **lookup 验证恰 1 命中**：`curl -s 'http://localhost:8082/api/decl-keys/lookup?key=api-yum_ai_agent-<方法-路径键>'`（键形如 `api-yum_ai_agent-GET-api-health`，路径 `/`→`-`）
 
-> 说明：gitbook-local 的 api-docs 维护流程还包含「同步中心区路由卡 + 刷新缓存 + lookup 验证」，该链路依赖 orchestrator 速查体系；`yum-ai-agent` 当前未接入该体系，接入后再补此步。
+运行前置：后端起（`sh scripts/start-yum-ai-agent.sh start`，health 探针就绪）——写回态生成器会跑查询面冒烟（接口测试案例.md「一、查询接口」区 health 样例；AI 端点 SSE/纯文本豁免冒烟归「二、」人工联调面）。
 
 ## 暂不直接纳入本目录的内容
 
